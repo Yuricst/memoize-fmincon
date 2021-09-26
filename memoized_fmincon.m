@@ -1,5 +1,5 @@
 function [u,fval,exitflag,output] = ...
-    memoized_fmincon(fitness, u0, lb, ub, opts)
+    memoized_fmincon(fitness, u0, A, b, Aeq, beq, lb, ub, opts)
 % =================================================== %
 % Memoized wrapper to fmincon
 %
@@ -11,7 +11,11 @@ function [u,fval,exitflag,output] = ...
 %   u0      : optimoptions handle
 %   lb      : lower bounds on decision vector
 %   ub      : upper bounds on decision vector
-%   opts    : optimoptions
+%   A       : A-matrix for linear constraint A*x ≤ b.
+%   b       : b-vector for linear constraint A*x ≤ b.
+%   Aeq     : A-matrix for linear constraint Aeq*x = beq.
+%   beq     : b-vector for linear constraint Aeq*x = beq.
+%   opts    : optimization options
 %
 % EXAMPLE
 % opts = optimoptions('fmincon','Display','iter','Algorithm','sqp');
@@ -35,7 +39,7 @@ ofun = @objfun;
 cfun = @nlcon;
 
 % call fmincon
-[u,fval,exitflag,output] = fmincon(ofun,u0,[],[],[],[],lb,ub,cfun,opts);
+[u,fval,exitflag,output] = fmincon(ofun,u0,A,b,Aeq,beq,lb,ub,cfun,opts);
 
 % ... nested functions below ... %
     % ===== objective function ===== %

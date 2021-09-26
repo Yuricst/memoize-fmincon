@@ -12,7 +12,7 @@ opts = optimoptions('fmincon','Display','iter',...
     'Algorithm','sqp');
 
 [u,fval,exitflag,output] = ...
-    memoized_fmincon(@fitness, x0, lb, ub, opts);
+    memoized_fmincon(@fitness, x0, [], [], [], [], lb, ub, opts);
 fprintf("Optimum x: %f, %f\n", u);
 
 % fitness function
