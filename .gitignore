@@ -1,0 +1,5 @@
+# automatic backup files
+*.asv
+
+# pdf files
+*.pdf
